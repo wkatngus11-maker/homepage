@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>해남제일중학교 정보교사 장수현 - AI & 에듀테크 기반 미래교육</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font (Tailwind default) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- React, ReactDOM, and Babel CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        /* 커스텀 Tailwind Configuration (파스텔 그린 톤 설정) */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-green': '#4ade80', /* Tailwind emerald-400 */
+                        'soft-green': '#dcfce7',  /* Tailwind emerald-100 */
+                        'highlight-yellow': '#fde68a', /* Tailwind amber-200 */
+                        'text-gray': '#4b5563', /* Tailwind gray-600 */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        /* Lucide 아이콘 초기화 */
+        window.onload = () => {
+            lucide.createIcons();
+        }
+
+        /* 스크롤 시 부드럽게 이동 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased font-sans">
+
+    <div id="root"></div>
+
+    <!-- React Component Definition using Babel -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // 컴포넌트: 섹션 카드 래퍼 (둥근 모서리, 그림자 스타일)
+        const Card = ({ children, className = "" }) => (
+            <div className={`p-6 bg-white rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300 ${className}`}>
+                {children}
+            </div>
+        );
+
+        // 컴포넌트: 버튼 스타일
+        const PrimaryButton = ({ children, href, icon, onClick, mailto = false }) => (
+            <a 
+                href={mailto ? `mailto:${href}` : href} 
+                onClick={onClick} 
+                className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-md text-white bg-primary-green hover:bg-emerald-500 transition duration-300 transform hover:scale-105"
+            >
+                <i data-lucide={icon} className="w-5 h-5 mr-2"></i>
+                {children}
+            </a>
+        );
+
+        // 컴포넌트: Hero 섹션
+        const HeroSection = () => (
+            <section id="hero" className="relative pt-16 md:pt-24 lg:pt-32 pb-16 lg:pb-24 bg-soft-green">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                        
+                        <!-- 텍스트 영역 -->
+                        <div className="mb-10 lg:mb-0">
+                            <span className="text-xl font-semibold text-primary-green tracking-wide uppercase mb-3 block">
+                                AI & Edutech | Future Classroom
+                            </span>
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-gray-900 mb-6">
+                                해남제일중학교<br className="sm:hidden lg:block"/> 정보교사 장수현
+                            </h1>
+                            <p className="text-xl text-text-gray mb-10 border-l-4 border-primary-green pl-4 italic">
+                                AI & 에듀테크 기반 미래교육을 연구하고 실천합니다.
+                            </p>
+                            
+                            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                                <PrimaryButton href="#contact" icon="mail">강의 문의</PrimaryButton>
+                                <a 
+                                    href="#portfolio" 
+                                    className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50 shadow-md transition duration-300"
+                                >
+                                    <i data-lucide="eye" className="w-5 h-5 mr-2"></i>
+                                    포트폴리오 보기
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- 이미지 영역 -->
+                        <div className="flex justify-center lg:justify-end">
+                            <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                                <img 
+                                    src="profile.png" 
+                                    alt="장수현 교사 프로필 사진" 
+                                    className="rounded-full object-cover w-full h-full shadow-2xl border-4 border-white ring-8 ring-highlight-yellow/50"
+                                    onerror="this.onerror=null;this.src='https://placehold.co/400x400/86efac/ffffff?text=Profile';"
+                                />
+                                <div className="absolute bottom-4 right-4 p-3 bg-white rounded-full shadow-xl">
+                                    <i data-lucide="graduation-cap" className="w-8 h-8 text-primary-green"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        // 컴포넌트: About 섹션
+        const AboutSection = () => (
+            <section id="about" className="py-20 lg:py-28">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-4xl font-extrabold text-center text-gray-900 mb-4">
+                        <span className="text-primary-green">About</span> Me
+                    </h2>
+                    <h3 className="text-2xl font-semibold text-center text-text-gray mb-12">
+                        나는 어떤 선생님인가요?
+                    </h3>
+                    
+                    <Card className="max-w-3xl mx-auto space-y-6 text-lg leading-relaxed">
+                        <p>
+                            저의 교육 철학은 '함께 성장하는 의미 있는 수업'을 만드는 것에 있습니다. 단순히 지식을 전달하는 것을 넘어, 학생들이 미래 사회의 주역으로 성장하는 데 필요한 컴퓨팅 사고력과 문제 해결 능력을 길러주는 것에 집중합니다. 모든 학생이 배움의 즐거움을 느끼고, 자신의 잠재력을 발견할 수 있도록 돕는 것이 교사로서 가장 중요하게 생각하는 가치입니다.
+                        </p>
+                        <p>
+                            특히, AI와 에듀테크를 활용한 교육 환경 구축에 힘쓰고 있습니다. 생성형 AI 도구를 활용하여 학생 맞춤형 학습 자료를 제작하고, 교사가 수업의 질을 높이는 데 집중할 수 있도록 업무 효율화를 지원하는 연수 및 컨설팅을 진행하고 있습니다. 교사와 학생 모두가 미래 기술을 두려워하지 않고 창의적으로 활용할 수 있도록 돕는 것이 저의 역할입니다.
+                        </p>
+                        <p className="italic text-primary-green font-medium">
+                            "미래 교육은 기술을 배우는 것을 넘어, 기술과 함께 인간다운 성장을 이루는 과정입니다."
+                        </p>
+                    </Card>
+                </div>
+            </section>
+        );
+
+        // 컴포넌트: Experience 섹션
+        const ExperienceSection = () => {
+            const experiences = [
+                {
+                    title: "학교 정보교사 (5년차)",
+                    description: "중학교 정보 교과 지도 및 학교 내 SW/AI 교육 프로그램 기획 및 운영.",
+                    icon: "school",
+                    color: "text-emerald-500",
+                },
+                {
+                    title: "에듀테크 활용 전문가",
+                    description: "GenAI (ChatGPT, Gemini) 및 다양한 에듀테크 도구를 활용한 수업 혁신 연구 및 적용.",
+                    icon: "cpu",
+                    color: "text-blue-500",
+                },
+                {
+                    title: "SW/AI 교육 핵심 강사",
+                    description: "C언어, Python 기초부터 Arduino, Entry를 활용한 피지컬 컴퓨팅 교육 전문가 과정 운영.",
+                    icon: "code",
+                    color: "text-indigo-500",
+                },
+                {
+                    title: "전국 정보교육 경진대회 수상",
+                    description: "2023년 우수 수업사례 부문 수상. 의미있는 교육 콘텐츠 개발 역량 인정.",
+                    icon: "award",
+                    color: "text-yellow-500",
+                },
+            ];
+
+            return (
+                <section id="experience" className="py-20 lg:py-28 bg-gray-50">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <h2 className="text-4xl font-extrabold text-center text-gray-900 mb-4">
+                            <span className="text-primary-green">Experience</span> & Awards
+                        </h2>
+                        <h3 className="text-2xl font-semibold text-center text-text-gray mb-12">
+                            주요 경력 및 수상 내용
+                        </h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {experiences.map((exp, index) => (
+                                <Card key={index} className="flex flex-col items-center text-center">
+                                    <div className={`p-4 rounded-full ${exp.color}/10 mb-4`}>
+                                        <i data-lucide={exp.icon} className={`w-8 h-8 ${exp.color}`}></i>
+                                    </div>
+                                    <h4 className="text-xl font-bold text-gray-900 mb-2">{exp.title}</h4>
+                                    <p className="text-text-gray text-sm leading-relaxed">{exp.description}</p>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 컴포넌트: Lectures 섹션
+        const LecturesSection = () => {
+            const lectures = [
+                {
+                    title: "AI 융합 교육과정 설계",
+                    description: "미래형 교육 환경 구축을 위한 실전 연수. 교과 융합 및 AI 도구 활용 방안 제시.",
+                    downloadFile: "money.jpg", // 파일 이름 그대로 사용
+                },
+                {
+                    title: "엔트리 & 아두이노 활용 피지컬 컴퓨팅",
+                    description: "SW/AI 교육 전문가 과정. 하드웨어와 소프트웨어를 연동한 창의적 문제 해결 능력 함양.",
+                    downloadFile: "money.jpg",
+                },
+                {
+                    title: "교사를 위한 생성형 AI 활용법",
+                    description: "수업 자료 제작, 평가 문항 개발, 학급 경영 등 업무 효율화를 위한 실용 강의.",
+                    downloadFile: "money.jpg",
+                },
+                {
+                    title: "미래형 교실 구축 컨설팅",
+                    description: "AI 시대에 필요한 디지털 인프라 및 교수학습 모델 적용 가이드라인 제시.",
+                    downloadFile: "money.jpg",
+                },
+            ];
+
+            return (
+                <section id="lectures" className="py-20 lg:py-28">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <h2 className="text-4xl font-extrabold text-center text-gray-900 mb-4">
+                            Key <span className="text-primary-green">Lectures</span> & Training
+                        </h2>
+                        <h3 className="text-2xl font-semibold text-center text-text-gray mb-12">
+                            대표 강의 및 연수 목록
+                        </h3>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {lectures.map((lec, index) => (
+                                <Card key={index} className="flex flex-col justify-between">
+                                    <div>
+                                        <div className="flex items-center mb-3">
+                                            <i data-lucide="book-open-check" className="w-6 h-6 text-primary-green mr-3"></i>
+                                            <h4 className="text-xl font-bold text-gray-900">{lec.title}</h4>
+                                        </div>
+                                        <p className="text-text-gray mb-4">{lec.description}</p>
+                                    </div>
+                                    <a 
+                                        href={lec.downloadFile} 
+                                        download 
+                                        className="mt-4 inline-flex items-center text-primary-green hover:text-emerald-600 font-semibold transition duration-300"
+                                    >
+                                        <i data-lucide="download" className="w-4 h-4 mr-2"></i>
+                                        강의 자료 다운로드 ({lec.downloadFile})
+                                    </a>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // 컴포넌트: Links 섹션
+        const LinksSection = () => (
+            <section id="portfolio" className="py-20 lg:py-28 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 className="text-4xl font-extrabold text-center text-gray-900 mb-4">
+                        Web <span className="text-primary-green">Apps</span> & Projects
+                    </h2>
+                    <h3 className="text-2xl font-semibold text-center text-text-gray mb-12">
+                        제가 만든 웹 앱 및 프로젝트 소개 영역
+                    </h3>
+
+                    <Card className="max-w-4xl mx-auto text-center p-12 bg-highlight-yellow/30 border-highlight-yellow">
+                        <i data-lucide="lightbulb" className="w-10 h-10 text-yellow-700 mx-auto mb-4"></i>
+                        <h4 className="text-2xl font-bold text-gray-800 mb-4">프로젝트 예시 (추후 업데이트 예정)</h4>
+                        <p className="text-lg text-gray-700 mb-6">
+                            이 영역은 제가 개발한 교육용 웹 애플리케이션이나 프로젝트의 링크를 첨부할 공간입니다.
+                            현재는 준비 중이며, 곧 새로운 콘텐츠로 채워질 예정입니다. 아래 예시 구조를 참고하여 나중에 내용을 쉽게 수정하실 수 있습니다.
+                        </p>
+                        
+                        <div className="border border-dashed border-gray-400 p-4 rounded-lg text-sm text-left bg-white mt-8">
+                            <p className="font-semibold mb-2 text-gray-600">-- 나중에 추가할 구조 예시 --</p>
+                            <ul className="list-disc list-inside space-y-1 text-gray-600">
+                                <li><strong>AI 윤리 토론 시뮬레이터:</strong> <a href="#" className="text-blue-500 hover:underline">프로젝트 링크</a> (설명: AI와 관련된 윤리적 딜레마를 학습하는 앱)</li>
+                                <li><strong>SW 교구 활용 가이드:</strong> <a href="#" className="text-blue-500 hover:underline">프로젝트 링크</a> (설명: 아두이노/엔트리 교구재 활용법 제공)</li>
+                            </ul>
+                        </div>
+                    </Card>
+                </div>
+            </section>
+        );
+
+        // 컴포넌트: Contact 섹션
+        const ContactSection = () => (
+            <section id="contact" className="py-20 lg:py-28 bg-primary-green/10">
+                <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
+                        Get In <span className="text-primary-green">Touch</span>
+                    </h2>
+                    <p className="text-xl text-text-gray mb-8">
+                        강의·연수·컨설팅 문의는 아래 이메일로 연락 주세요. 성심성의껏 답변 드리겠습니다.
+                    </p>
+                    <PrimaryButton href="wkatngus11@gmail.com" icon="send" mailto>
+                        wkatngus11@gmail.com
+                    </PrimaryButton>
+                </div>
+            </section>
+        );
+
+        // 컴포넌트: Footer
+        const Footer = () => (
+            <footer className="bg-gray-900 py-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400 text-sm">
+                    <p className="mb-2">Designed for Future Education</p>
+                    <p>© 2025 JANG SOO HYEON. All Rights Reserved.</p>
+                </div>
+            </footer>
+        );
+
+        // 메인 App 컴포넌트
+        const App = () => (
+            <div className="min-h-screen flex flex-col">
+                {/* Navigation (Optional, for smooth scrolling) */}
+                <nav className="sticky top-0 z-10 bg-white shadow-md">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex justify-between items-center h-16">
+                            <a href="#hero" className="text-2xl font-bold text-primary-green">JSH Edu</a>
+                            <div className="hidden sm:flex space-x-6 text-gray-700 font-medium">
+                                <a href="#about" className="hover:text-primary-green transition">About</a>
+                                <a href="#experience" className="hover:text-primary-green transition">Experience</a>
+                                <a href="#lectures" className="hover:text-primary-green transition">Lectures</a>
+                                <a href="#portfolio" className="hover:text-primary-green transition">Projects</a>
+                                <a href="#contact" className="hover:text-primary-green transition">Contact</a>
+                            </div>
+                            {/* Mobile Menu Icon Placeholder */}
+                            <button className="sm:hidden text-gray-700 hover:text-primary-green">
+                                <i data-lucide="menu" className="w-6 h-6"></i>
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+
+                {/* Main Content Sections */}
+                <main className="flex-grow">
+                    <HeroSection />
+                    <AboutSection />
+                    <ExperienceSection />
+                    <LecturesSection />
+                    <LinksSection />
+                    <ContactSection />
+                </main>
+
+                {/* Footer */}
+                <Footer />
+            </div>
+        );
+
+        // React 렌더링
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
